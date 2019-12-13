@@ -12,9 +12,10 @@ class Person extends Component {
     //         width: '450px'
     //     }
     // }
-
+    static contextType = AuthContext;
     componentDidMount() {
         this.inputElement.focus();
+        console.log(this.context.authenticated);
     }
     render () {
         console.log('[Person.js] rendering.....');
@@ -22,11 +23,7 @@ class Person extends Component {
             // <div className={classes.Person}>
             // <React.Fragment>
             <Aux>
-                <AuthContext.Consumer>
-                    {
-                        (context) => context.authenticated ? <p>Authenticated</p> : <p>Please Login</p>
-                    }
-                </AuthContext.Consumer>
+                {this.context.authenticated ? <p>Authenticated</p> : <p>Please Login</p>}
                 <p onClick={this.props.click} >
                     I'm {this.props.name} and I am {this.props.age} years old. {this.props.children} 
                 </p>
