@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import classes from './Cockpit.css'
 import Aux from '../../hoc/Aux'
 
 const Cockpit = (props) => {
+
+    const toggleBtnRef= useRef(null);
     console.log(props);
     useEffect (() => {
         console.log('[Cockpit.js] useEffect');
@@ -21,9 +23,10 @@ const Cockpit = (props) => {
             console.log('[Cockpit.js] useEffect');
             // Http requests
 
-            setTimeout(() => {
-                alert('Saved data to the cloud');
-            }, 1000);
+            // setTimeout(() => {
+            //     alert('Saved data to the cloud');
+            // }, 1000);
+            toggleBtnRef.current.click()
             return () => {
                 console.log('[Cockpit.js] cleanup work in useEffect');
             }
@@ -52,7 +55,7 @@ const Cockpit = (props) => {
             <Aux>
                 <h1 >{props.title}</h1>
                 <p className= {assignedClasses.join(' ')}>Hey, this line may be bold or red or both!!!!!</p>
-                <button className= {btnClass} onClick={props.clicked}>Toggle Persons</button>
+                <button ref={toggleBtnRef} className= {btnClass} onClick={props.clicked}>Toggle Persons</button>
             </Aux>
             // </div>
         );
