@@ -24,7 +24,8 @@ class App extends Component {
      otherState: "some other value",
      showPersons: false,
      showCockpit: true,
-     changeCounter: 0
+     changeCounter: 0,
+     authenticated: false
   }
   
   static getDerivedStateFromProps(props, state) {
@@ -66,10 +67,12 @@ class App extends Component {
       changeCounter: prevState.changeCounter +1
     }});
   }
+
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({showPersons: !doesShow});
   }
+
   deletePersonHandler = (personIndex) => {
     // Old one.....
     // let persons = this.state.person.slice();
@@ -78,6 +81,11 @@ class App extends Component {
     persons.splice(personIndex, 1);
     this.setState({person: persons})
   }
+
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  }
+
   render() {
     console.log('[App.js] render')
     const style = {
@@ -103,7 +111,8 @@ class App extends Component {
             <Persons 
               clicked = {this.deletePersonHandler} 
               changed = {this.nameChangedHandler}
-              person = {this.state.person}/>
+              person = {this.state.person}
+              isAuthenticated = {this.state.authenticated} />
           </div>
           //  without using map function.....
           // <div>
@@ -151,6 +160,7 @@ class App extends Component {
               showPersons = {this.state.showPersons}
               personLength = {this.state.person.length}
               clicked = {this.togglePersonsHandler}
+              login = {this.loginHandler}
             /> : null
           }
           {persons}
