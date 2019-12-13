@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classes from './Person.css';
 import Aux from '../../../hoc/Aux';
 import withClass from '../../../hoc/withClasses'
+import AuthContext from '../../../context/auth-context';
 
 class Person extends Component {
     // const style = {
@@ -21,7 +22,11 @@ class Person extends Component {
             // <div className={classes.Person}>
             // <React.Fragment>
             <Aux>
-                {this.props.isAuth ? <p>Authenticated</p> : <p>Please Login</p> }
+                <AuthContext.Consumer>
+                    {
+                        (context) => context.authenticated ? <p>Authenticated</p> : <p>Please Login</p>
+                    }
+                </AuthContext.Consumer>
                 <p onClick={this.props.click} >
                     I'm {this.props.name} and I am {this.props.age} years old. {this.props.children} 
                 </p>
